@@ -4,209 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 Life Improvement Notifications</title>
+    
+    <!-- ONE SIGNAL SDK - YAHI CODE CHAHIYE THA AAPKO -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
+        });
+        OneSignal.Slidedown.promptPush();
+      });
+    </script>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2rem;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .features {
-            text-align: left;
-            margin: 30px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            font-size: 1rem;
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            width: 30px;
-        }
-
-        .subscribe-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        .subscribe-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .subscribe-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .status {
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .status.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .status.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .test-buttons {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .test-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .test-btn:hover {
-            background: #218838;
-        }
-
-        .test-btn.all {
-            grid-column: 1 / -1;
-            background: #ff6b6b;
-        }
-
-        .test-btn.all:hover {
-            background: #ff5252;
-        }
-
-        .schedule {
-            margin-top: 30px;
-            text-align: left;
-        }
-
-        .schedule h3 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .time-slot {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .time {
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .activity {
-            color: #666;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { background: white; border-radius: 20px; padding: 40px; max-width: 500px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .logo { font-size: 3rem; margin-bottom: 20px; }
+        h1 { color: #333; margin-bottom: 10px; }
+        .subtitle { color: #666; margin-bottom: 30px; }
+        .subscribe-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 30px; font-size: 1.1rem; border-radius: 50px; cursor: pointer; margin: 20px 0; width: 100%; }
+        .test-buttons { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .test-btn { background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; }
+        .test-btn.all { grid-column: 1 / -1; background: #ff6b6b; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">🚀</div>
         <h1>Life Improvement Notifications</h1>
-        <p class="subtitle">
-            Get daily motivational reminders for success, health, study, and focus. 
-            Transform your life with AI-powered notifications!
-        </p>
-
-        <div class="features">
-            <div class="feature-item">
-                <span class="feature-icon">🌅</span>
-                <span>Morning Motivation (5:00 AM)</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">📚</span>
-                <span>Study Reminders (8:00 AM, 3:00 PM)</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">💪</span>
-                <span>Health & Fitness Alerts</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">🎯</span>
-                <span>Focus & Career Motivation</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">😴</span>
-                <span>Sleep Discipline (10:00 PM)</span>
-            </div>
-        </div>
-
-        <button class="subscribe-btn" id="subscribeBtn">
+        <p class="subtitle">Get daily motivational reminders for success!</p>
+        
+        <button class="subscribe-btn" onclick="subscribeToNotifications()">
             🔔 Enable Notifications
         </button>
-
-        <div class="status" id="status"></div>
 
         <div class="test-buttons">
             <button class="test-btn" onclick="sendTest('wake-up')">🌅 Wake Up</button>
@@ -216,93 +48,18 @@
             <button class="test-btn" onclick="sendTest('sleep')">😴 Sleep</button>
             <button class="test-btn all" onclick="sendTest('all')">🎉 Test All</button>
         </div>
-
-        <div class="schedule">
-            <h3>📅 Daily Schedule (IST):</h3>
-            <div class="time-slot">
-                <span class="time">5:00 AM</span>
-                <span class="activity">Wake Up Motivation</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">8:00 AM</span>
-                <span class="activity">Study Session 1</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">10:00 AM</span>
-                <span class="activity">Health Reminder</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">12:00 PM</span>
-                <span class="activity">Focus Boost</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">3:00 PM</span>
-                <span class="activity">Study Session 2</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">5:00 PM</span>
-                <span class="activity">Exercise Time</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">7:00 PM</span>
-                <span class="activity">Evening Focus</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">10:00 PM</span>
-                <span class="activity">Sleep Reminder</span>
-            </div>
-        </div>
     </div>
 
-    <!-- OneSignal SDK -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    
     <script>
-        // OneSignal Initialization
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function(OneSignal) {
-            await OneSignal.init({
-                appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
-                allowLocalhostAsSecureOrigin: true,
-            });
-        });
-
-        // Subscribe Button Handler
-        document.getElementById('subscribeBtn').addEventListener('click', async function() {
-            const btn = this;
-            const status = document.getElementById('status');
-            
-            btn.disabled = true;
-            btn.textContent = 'Enabling...';
-            status.style.display = 'none';
-
+        async function subscribeToNotifications() {
             try {
-                // Request notification permission
-                const permission = await Notification.requestPermission();
-                
-                if (permission === 'granted') {
-                    // Initialize OneSignal and subscribe
-                    await OneSignal.Slidedown.promptPush();
-                    
-                    status.textContent = '✅ Notifications enabled successfully! You will receive daily motivational reminders.';
-                    status.className = 'status success';
-                    status.style.display = 'block';
-                    
-                    btn.textContent = '🔔 Notifications Enabled';
-                } else {
-                    throw new Error('Notification permission denied');
-                }
+                await OneSignal.Slidedown.promptPush();
+                alert('✅ Notifications enabled! You will receive daily reminders.');
             } catch (error) {
-                status.textContent = '❌ Failed to enable notifications. Please allow notifications in browser settings.';
-                status.className = 'status error';
-                status.style.display = 'block';
-                
-                btn.disabled = false;
-                btn.textContent = '🔔 Enable Notifications';
+                alert('❌ Please allow notifications in browser settings.');
             }
-        });
+        }
 
-        // Test Notification Function
         async function sendTest(type) {
             const backendUrl = 'https://daily-motivational.onrender.com';
             let endpoint = '';
@@ -318,21 +75,11 @@
 
             try {
                 const response = await fetch(backendUrl + endpoint);
-                const result = await response.json();
-                
-                alert(`✅ Test notification sent!\nType: ${type}\nMessage: ${result.message || 'Success'}`);
+                alert('✅ Test notification sent! Check your notifications.');
             } catch (error) {
-                alert('❌ Failed to send test notification. Please try again.');
+                alert('❌ Failed to send test notification.');
             }
         }
-
-        // Check current notification status
-        window.addEventListener('load', function() {
-            if (Notification.permission === 'granted') {
-                document.getElementById('subscribeBtn').textContent = '🔔 Notifications Enabled';
-                document.getElementById('subscribeBtn').disabled = true;
-            }
-        });
     </script>
 </body>
 </html>
