@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 Life Improvement Notifications</title>
     
-    <!-- ONE SIGNAL SDK - YAHI CODE CHAHIYE THA AAPKO -->
+    <!-- ONE SIGNAL SDK - YAHI CODE USE KAREIN -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -13,31 +13,131 @@
         await OneSignal.init({
           appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
         });
-        OneSignal.Slidedown.promptPush();
+        
+        console.log("✅ OneSignal initialized successfully!");
+        
+        // Auto show prompt after 3 seconds
+        setTimeout(() => {
+          OneSignal.Slidedown.promptPush();
+          console.log("📢 Subscription prompt shown");
+        }, 3000);
       });
     </script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
-        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { background: white; border-radius: 20px; padding: 40px; max-width: 500px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .logo { font-size: 3rem; margin-bottom: 20px; }
-        h1 { color: #333; margin-bottom: 10px; }
-        .subtitle { color: #666; margin-bottom: 30px; }
-        .subscribe-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 30px; font-size: 1.1rem; border-radius: 50px; cursor: pointer; margin: 20px 0; width: 100%; }
-        .test-buttons { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .test-btn { background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; }
-        .test-btn.all { grid-column: 1 / -1; background: #ff6b6b; }
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+        }
+        .container { 
+            background: white; 
+            border-radius: 20px; 
+            padding: 40px; 
+            max-width: 500px; 
+            width: 100%; 
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .logo { 
+            font-size: 4rem; 
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        h1 { 
+            color: #333; 
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        .subtitle { 
+            color: #666; 
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .manual-btn { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); 
+            color: white; 
+            border: none; 
+            padding: 15px 30px; 
+            font-size: 1.2rem;
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin: 20px 0; 
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .manual-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .test-buttons { 
+            margin-top: 30px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+        }
+        .test-btn { 
+            background: #28a745; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            border-radius: 8px; 
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .test-btn:hover {
+            background: #218838;
+        }
+        .test-btn.all { 
+            grid-column: 1 / -1; 
+            background: #667eea;
+        }
+        .test-btn.all:hover {
+            background: #5a6fd8;
+        }
+        .instructions {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .instructions ul {
+            color: #666;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">🚀</div>
         <h1>Life Improvement Notifications</h1>
-        <p class="subtitle">Get daily motivational reminders for success!</p>
+        <p class="subtitle">
+            Get daily AI-powered motivational reminders for:<br>
+            🌅 Wake Up | 📚 Study | 💪 Health | 🎯 Focus | 😴 Sleep
+        </p>
         
-        <button class="subscribe-btn" onclick="subscribeToNotifications()">
-            🔔 Enable Notifications
+        <button class="manual-btn" onclick="showNotificationPrompt()">
+            🔔 Click Here to Enable Notifications
         </button>
 
         <div class="test-buttons">
@@ -46,20 +146,45 @@
             <button class="test-btn" onclick="sendTest('focus')">🎯 Focus</button>
             <button class="test-btn" onclick="sendTest('health')">💪 Health</button>
             <button class="test-btn" onclick="sendTest('sleep')">😴 Sleep</button>
-            <button class="test-btn all" onclick="sendTest('all')">🎉 Test All</button>
+            <button class="test-btn all" onclick="sendTest('all')">🎉 Test All Notifications</button>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 How to Enable:</h3>
+            <ul>
+                <li>Click the button above</li>
+                <li>Allow notifications in the popup</li>
+                <li>Use test buttons to verify</li>
+                <li>You'll receive 16+ daily reminders automatically!</li>
+            </ul>
         </div>
     </div>
 
     <script>
-        async function subscribeToNotifications() {
+        // Manual notification prompt
+        async function showNotificationPrompt() {
             try {
-                await OneSignal.Slidedown.promptPush();
-                alert('✅ Notifications enabled! You will receive daily reminders.');
+                console.log("Manual notification prompt requested");
+                
+                if (window.OneSignal) {
+                    await OneSignal.Slidedown.promptPush();
+                    console.log("OneSignal prompt shown");
+                } else {
+                    // Fallback: Direct browser notification
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        alert('✅ Notifications enabled! You will receive daily motivational reminders.');
+                    } else {
+                        alert('❌ Please allow notifications to receive daily reminders.');
+                    }
+                }
             } catch (error) {
-                alert('❌ Please allow notifications in browser settings.');
+                console.error("Error showing prompt:", error);
+                alert('⚠️ Please check browser permissions and try again.');
             }
         }
 
+        // Test notification function
         async function sendTest(type) {
             const backendUrl = 'https://daily-motivational.onrender.com';
             let endpoint = '';
@@ -75,11 +200,19 @@
 
             try {
                 const response = await fetch(backendUrl + endpoint);
-                alert('✅ Test notification sent! Check your notifications.');
+                const result = await response.json();
+                
+                alert(`✅ Test notification sent!\nType: ${type}\nCheck your notifications!`);
             } catch (error) {
-                alert('❌ Failed to send test notification.');
+                alert('❌ Failed to send test notification. Please try again.');
             }
         }
+
+        // Page load message
+        window.addEventListener('load', function() {
+            console.log("🚀 Life Improvement Website Loaded");
+            console.log("OneSignal App ID: 1d383c7c-0776-42ac-a772-22a5bf9ffc0b");
+        });
     </script>
 </body>
 </html>
