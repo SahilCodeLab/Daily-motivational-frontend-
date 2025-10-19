@@ -7,20 +7,42 @@
     
     <!-- OneSignal SDK -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
-    });
-  });
-</script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            try {
+                console.log("🔄 OneSignal Initializing...");
+                
+                await OneSignal.init({
+                    appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
+                });
+                
+                console.log("✅ OneSignal Initialized");
+                
+                // Check current subscription status
+                const isSubscribed = await OneSignal.User.pushSubscription.isSubscribed();
+                console.log("📱 User subscribed:", isSubscribed);
+                
+                if (!isSubscribed) {
+                    console.log("🎯 Showing subscription prompt...");
+                    // Show prompt after 3 seconds
+                    setTimeout(() => {
+                        OneSignal.Slidedown.promptPush();
+                    }, 3000);
+                } else {
+                    console.log("✅ User already subscribed");
+                    document.getElementById('status').innerHTML = 
+                        '✅ <strong>Already Subscribed!</strong> You will receive notifications.';
+                }
+                
+            } catch (error) {
+                console.error("❌ OneSignal Error:", error);
+            }
+        });
+    </script>
     
     <style>
-        * { 
-            margin: 0; padding: 0; box-sizing: border-box; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
             min-height: 100vh; 
@@ -38,89 +60,20 @@
             text-align: center; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .logo { 
-            font-size: 4rem; 
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        h1 { 
-            color: #333; 
-            margin-bottom: 15px;
-            font-size: 2rem;
-        }
-        .subtitle { 
-            color: #666; 
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        .features {
-            text-align: left;
-            margin: 30px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-        .feature-item {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            font-size: 1rem;
-        }
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            width: 30px;
-        }
-        .test-buttons { 
-            margin-top: 30px; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-        }
-        .test-btn { 
-            background: #28a745; 
+        .logo { font-size: 4rem; margin-bottom: 20px; }
+        h1 { color: #333; margin-bottom: 15px; }
+        .subtitle { color: #666; margin-bottom: 30px; }
+        
+        .manual-trigger { 
+            background: #ff6b6b; 
             color: white; 
             border: none; 
-            padding: 12px; 
-            border-radius: 8px; 
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .test-btn:hover {
-            background: #218838;
-        }
-        .test-btn.all { 
-            grid-column: 1 / -1; 
-            background: #667eea;
-        }
-        .test-btn.all:hover {
-            background: #5a6fd8;
-        }
-        .schedule {
-            margin-top: 30px;
-            text-align: left;
-        }
-        .schedule h3 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .time-slot {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .time {
-            font-weight: bold;
-            color: #667eea;
-        }
-        .activity {
-            color: #666;
+            padding: 15px 30px; 
+            font-size: 1.2rem;
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin: 20px 0; 
+            width: 100%;
         }
         .status {
             margin: 20px 0;
@@ -130,119 +83,80 @@
             color: #155724;
             border: 1px solid #c3e6cb;
         }
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">🚀</div>
         <h1>Life Improvement Notifications</h1>
-        <p class="subtitle">
-            Get daily AI-powered motivational reminders for success, health, study, and focus. 
-            Transform your life with smart notifications!
-        </p>
-
-        <div class="features">
-            <div class="feature-item">
-                <span class="feature-icon">🌅</span>
-                <span><strong>Morning Motivation</strong> (5:00 AM)</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">📚</span>
-                <span><strong>Study Reminders</strong> (8:00 AM, 3:00 PM)</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">💪</span>
-                <span><strong>Health & Fitness</strong> Alerts</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">🎯</span>
-                <span><strong>Focus & Career</strong> Motivation</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">😴</span>
-                <span><strong>Sleep Discipline</strong> (10:00 PM)</span>
-            </div>
+        <p class="subtitle">Enable notifications for daily motivation</p>
+        
+        <div class="status" id="status">
+            🔄 Checking subscription status...
         </div>
 
-        <div class="status">
-            ✅ <strong>Auto-popup enabled!</strong> You'll see notification permission prompt in 2 seconds.
-        </div>
+        <button class="manual-trigger" onclick="forceSubscribe()">
+            🎯 CLICK HERE TO ENABLE NOTIFICATIONS
+        </button>
 
-        <div class="test-buttons">
-            <button class="test-btn" onclick="sendTest('wake-up')">🌅 Wake Up</button>
-            <button class="test-btn" onclick="sendTest('study')">📚 Study</button>
-            <button class="test-btn" onclick="sendTest('focus')">🎯 Focus</button>
-            <button class="test-btn" onclick="sendTest('health')">💪 Health</button>
-            <button class="test-btn" onclick="sendTest('sleep')">😴 Sleep</button>
-            <button class="test-btn all" onclick="sendTest('all')">🎉 Test All Notifications</button>
-        </div>
-
-        <div class="schedule">
-            <h3>📅 Daily Schedule (IST):</h3>
-            <div class="time-slot">
-                <span class="time">5:00 AM</span>
-                <span class="activity">Wake Up Motivation</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">8:00 AM</span>
-                <span class="activity">Study Session 1</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">10:00 AM</span>
-                <span class="activity">Health Reminder</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">12:00 PM</span>
-                <span class="activity">Focus Boost</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">3:00 PM</span>
-                <span class="activity">Study Session 2</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">5:00 PM</span>
-                <span class="activity">Exercise Time</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">7:00 PM</span>
-                <span class="activity">Evening Focus</span>
-            </div>
-            <div class="time-slot">
-                <span class="time">10:00 PM</span>
-                <span class="activity">Sleep Reminder</span>
-            </div>
+        <div class="debug-info">
+            <strong>Debug Info:</strong><br>
+            • Check browser console for errors (F12 → Console)<br>
+            • Allow popups for this site<br>
+            • Ensure HTTPS connection<br>
+            • OneSignal App ID: 1d383c7c-0776-42ac-a772-22a5bf9ffc0b
         </div>
     </div>
 
     <script>
-        // Test notification function
-        async function sendTest(type) {
-            const backendUrl = 'https://daily-motivational.onrender.com';
-            let endpoint = '';
-            
-            switch(type) {
-                case 'wake-up': endpoint = '/test/wake-up'; break;
-                case 'study': endpoint = '/test/study'; break;
-                case 'focus': endpoint = '/test/focus'; break;
-                case 'health': endpoint = '/test/health'; break;
-                case 'sleep': endpoint = '/test/sleep'; break;
-                case 'all': endpoint = '/test/all'; break;
-            }
-
+        // FORCE SUBSCRIPTION FUNCTION
+        async function forceSubscribe() {
             try {
-                const response = await fetch(backendUrl + endpoint);
-                const result = await response.json();
+                console.log("🎯 Manual subscription triggered");
                 
-                alert(`✅ Test notification sent!\nType: ${type}\nCheck your notifications!`);
+                if (window.OneSignal) {
+                    // Method 1: OneSignal prompt
+                    await OneSignal.Slidedown.promptPush();
+                    console.log("✅ OneSignal prompt shown");
+                } else {
+                    // Method 2: Direct browser notification
+                    const permission = await Notification.requestPermission();
+                    console.log("📋 Browser permission:", permission);
+                    
+                    if (permission === 'granted') {
+                        document.getElementById('status').innerHTML = 
+                            '✅ <strong>Notifications Enabled!</strong> You will receive daily reminders.';
+                    } else {
+                        document.getElementById('status').innerHTML = 
+                            '❌ <strong>Permission Denied.</strong> Please allow notifications in browser settings.';
+                    }
+                }
             } catch (error) {
-                alert('❌ Failed to send test notification. Please try again.');
+                console.error("❌ Subscription error:", error);
+                document.getElementById('status').innerHTML = 
+                    '❌ <strong>Error:</strong> ' + error.message;
             }
         }
 
-        // Page load message
+        // Check browser support
         window.addEventListener('load', function() {
-            console.log("🚀 Life Improvement Website Loaded");
-            console.log("OneSignal App ID: 1d383c7c-0776-42ac-a772-22a5bf9ffc0b");
+            console.log("🌐 Page loaded - Checking support...");
+            
+            if (!("Notification" in window)) {
+                console.error("❌ Browser doesn't support notifications");
+                document.getElementById('status').innerHTML = 
+                    '❌ <strong>Browser not supported.</strong> Use Chrome, Firefox, or Edge.';
+            } else {
+                console.log("✅ Browser supports notifications");
+            }
         });
     </script>
 </body>
