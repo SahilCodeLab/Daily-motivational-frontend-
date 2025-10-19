@@ -5,19 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 Life Improvement Notifications</title>
     
-    <!-- ONE SIGNAL SDK - AUTOMATIC POPUP -->
+    <!-- OneSignal SDK -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
-    });
-  });
-</script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
+        });
+        
+        // Auto show subscription prompt
+        setTimeout(() => {
+          OneSignal.Slidedown.promptPush();
+        }, 2000);
+      });
+    </script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
             min-height: 100vh; 
@@ -35,10 +43,44 @@
             text-align: center; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .logo { font-size: 4rem; margin-bottom: 20px; }
-        h1 { color: #333; margin-bottom: 15px; }
-        .subtitle { color: #666; margin-bottom: 30px; line-height: 1.6; }
-        
+        .logo { 
+            font-size: 4rem; 
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        h1 { 
+            color: #333; 
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        .subtitle { 
+            color: #666; 
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .features {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 1rem;
+        }
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 30px;
+        }
         .test-buttons { 
             margin-top: 30px; 
             display: grid; 
@@ -52,10 +94,46 @@
             padding: 12px; 
             border-radius: 8px; 
             cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .test-btn:hover {
+            background: #218838;
         }
         .test-btn.all { 
             grid-column: 1 / -1; 
             background: #667eea;
+        }
+        .test-btn.all:hover {
+            background: #5a6fd8;
+        }
+        .schedule {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .schedule h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .time-slot {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .time {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .activity {
+            color: #666;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
     </style>
 </head>
@@ -64,9 +142,36 @@
         <div class="logo">🚀</div>
         <h1>Life Improvement Notifications</h1>
         <p class="subtitle">
-            You'll receive automatic popup to enable notifications.<br>
-            Allow to get daily motivational reminders! 🌟
+            Get daily AI-powered motivational reminders for success, health, study, and focus. 
+            Transform your life with smart notifications!
         </p>
+
+        <div class="features">
+            <div class="feature-item">
+                <span class="feature-icon">🌅</span>
+                <span><strong>Morning Motivation</strong> (5:00 AM)</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📚</span>
+                <span><strong>Study Reminders</strong> (8:00 AM, 3:00 PM)</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">💪</span>
+                <span><strong>Health & Fitness</strong> Alerts</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🎯</span>
+                <span><strong>Focus & Career</strong> Motivation</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">😴</span>
+                <span><strong>Sleep Discipline</strong> (10:00 PM)</span>
+            </div>
+        </div>
+
+        <div class="status">
+            ✅ <strong>Auto-popup enabled!</strong> You'll see notification permission prompt in 2 seconds.
+        </div>
 
         <div class="test-buttons">
             <button class="test-btn" onclick="sendTest('wake-up')">🌅 Wake Up</button>
@@ -74,11 +179,48 @@
             <button class="test-btn" onclick="sendTest('focus')">🎯 Focus</button>
             <button class="test-btn" onclick="sendTest('health')">💪 Health</button>
             <button class="test-btn" onclick="sendTest('sleep')">😴 Sleep</button>
-            <button class="test-btn all" onclick="sendTest('all')">🎉 Test All</button>
+            <button class="test-btn all" onclick="sendTest('all')">🎉 Test All Notifications</button>
+        </div>
+
+        <div class="schedule">
+            <h3>📅 Daily Schedule (IST):</h3>
+            <div class="time-slot">
+                <span class="time">5:00 AM</span>
+                <span class="activity">Wake Up Motivation</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">8:00 AM</span>
+                <span class="activity">Study Session 1</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">10:00 AM</span>
+                <span class="activity">Health Reminder</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">12:00 PM</span>
+                <span class="activity">Focus Boost</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">3:00 PM</span>
+                <span class="activity">Study Session 2</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">5:00 PM</span>
+                <span class="activity">Exercise Time</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">7:00 PM</span>
+                <span class="activity">Evening Focus</span>
+            </div>
+            <div class="time-slot">
+                <span class="time">10:00 PM</span>
+                <span class="activity">Sleep Reminder</span>
+            </div>
         </div>
     </div>
 
     <script>
+        // Test notification function
         async function sendTest(type) {
             const backendUrl = 'https://daily-motivational.onrender.com';
             let endpoint = '';
@@ -94,11 +236,19 @@
 
             try {
                 const response = await fetch(backendUrl + endpoint);
-                alert('✅ Test notification sent! Check your notifications.');
+                const result = await response.json();
+                
+                alert(`✅ Test notification sent!\nType: ${type}\nCheck your notifications!`);
             } catch (error) {
-                alert('❌ Failed to send test notification.');
+                alert('❌ Failed to send test notification. Please try again.');
             }
         }
+
+        // Page load message
+        window.addEventListener('load', function() {
+            console.log("🚀 Life Improvement Website Loaded");
+            console.log("OneSignal App ID: 1d383c7c-0776-42ac-a772-22a5bf9ffc0b");
+        });
     </script>
 </body>
 </html>
