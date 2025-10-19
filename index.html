@@ -7,39 +7,14 @@
     
     <!-- OneSignal SDK -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function(OneSignal) {
-            try {
-                console.log("🔄 OneSignal Initializing...");
-                
-                await OneSignal.init({
-                    appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
-                });
-                
-                console.log("✅ OneSignal Initialized");
-                
-                // Check current subscription status
-                const isSubscribed = await OneSignal.User.pushSubscription.isSubscribed();
-                console.log("📱 User subscribed:", isSubscribed);
-                
-                if (!isSubscribed) {
-                    console.log("🎯 Showing subscription prompt...");
-                    // Show prompt after 3 seconds
-                    setTimeout(() => {
-                        OneSignal.Slidedown.promptPush();
-                    }, 3000);
-                } else {
-                    console.log("✅ User already subscribed");
-                    document.getElementById('status').innerHTML = 
-                        '✅ <strong>Already Subscribed!</strong> You will receive notifications.';
-                }
-                
-            } catch (error) {
-                console.error("❌ OneSignal Error:", error);
-            }
-        });
-    </script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "1d383c7c-0776-42ac-a772-22a5bf9ffc0b",
+    });
+  });
+</script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
